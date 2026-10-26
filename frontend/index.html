@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#08091a" />
+    <meta name="description" content="NovaTel real-time voice assistant for grounded telecom customer support." />
+    <title>NovaTel Voice Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css?v=10" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="sidebar-logo" href="/" aria-label="NovaTel home">N</a>
+        <nav class="side-nav">
+          <a href="#voicePanel" class="nav-link" aria-label="Voice agent" title="Voice agent">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 18v3m-4 0h8"/></svg>
+          </a>
+          <a href="#conversationPanel" class="nav-link" aria-label="Transcript" title="Transcript">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v11H9l-4 3zM8 9h8M8 12h5"/></svg>
+          </a>
+          <a href="#latencyPanel" class="nav-link" aria-label="Pipeline metrics" title="Pipeline metrics">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9m7 10V5m7 14v-7M3 19h18"/></svg>
+          </a>
+          <a href="#sourcesPanel" class="nav-link" aria-label="Knowledge sources" title="Knowledge sources">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19v17H7.5A2.5 2.5 0 0 0 5 22zM5 5.5v14A2.5 2.5 0 0 1 7.5 17H19"/></svg>
+          </a>
+        </nav>
+        <div class="sidebar-bottom">
+          <span class="sidebar-live-dot" aria-hidden="true"></span>
+          <span class="sidebar-avatar" title="NovaTel demo">N</span>
+        </div>
+      </aside>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="NovaTel Voice Assistant home">
+          <span class="brand-copy">
+            <span class="brand-title"><strong>novatel</strong><i>VOICE AI</i></span>
+            <small>Customer Service · Live session</small>
+          </span>
+        </a>
+        <div class="topbar-meta">
+          <label class="session-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+            <input id="transcriptSearch" type="search" placeholder="Search transcript…" aria-label="Search transcript" />
+            <kbd>⌘K</kbd>
+          </label>
+          <span id="sessionBadge" class="top-chip session-badge">session · waiting</span>
+          <a class="top-chip" href="/agent" target="_blank" rel="noreferrer">Advisor inbox ↗</a>
+          <span id="sessionTimer" class="top-chip timer-chip">00:00</span>
+          <span class="connection-pill"><i id="statusDot" class="status-dot"></i><span id="statusLabel">Disconnected</span></span>
+        </div>
+      </header>
+
+      <div class="dashboard">
+        <section id="voicePanel" class="panel voice-panel" aria-label="Live voice controls">
+          <div class="section-topline">
+            <span class="eyebrow">LIVE VOICE</span>
+            <span id="voiceStateTag" class="state-tag">ready</span>
+          </div>
+
+          <div class="voice-context-card">
+            <span class="context-avatar">N</span>
+            <span><strong>NovaTel support</strong><small>Voice session · demo</small></span>
+          </div>
+          <div class="language-card"><small>ASR LANGUAGE</small><strong id="languageLabel">—</strong><span>Whisper</span></div>
+
+          <div class="orb-stage" aria-hidden="true">
+            <div class="orb-ring ring-one"></div>
+            <div class="orb-ring ring-two"></div>
+            <div class="orb-ring ring-three"></div>
+            <div id="orbSpectrum" class="orb-spectrum"></div>
+            <div class="orb-core"><div class="orb-shine"></div><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 18v3m-4 0h8"/></svg></div>
+            <div class="vad-pill vad-left"><i></i><span id="vadSignal">VAD ready</span></div>
+            <div class="vad-pill vad-right"><i></i><span>Silero VAD</span></div>
+          </div>
+
+          <div class="voice-caption">
+            <h1 id="voiceHeadline">Ready when you are</h1>
+            <p id="statusDetail">Start a conversation and allow microphone access.</p>
+          </div>
+
+          <div class="voice-controls">
+            <button id="startButton" class="button button-start" type="button" aria-label="Start conversation">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 18v3m-4 0h8"/></svg>
+              <span>Start conversation</span>
+            </button>
+            <div class="active-control" aria-live="polite"><span class="active-equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="activeControlLabel">Ready</span></div>
+            <button id="stopButton" class="button button-stop" type="button" aria-label="Stop conversation" title="Stop conversation" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h3l2 5-2 2a15 15 0 0 0 3 3l2-2 5 2v3a2 2 0 0 1-2 2C10 18 6 14 5 6a2 2 0 0 1 2-2z"/></svg>
+            </button>
+            <button id="clearButton" class="button button-clear" type="button" aria-label="Clear conversation" title="Clear conversation">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-.8 13H6.8L6 7m4 4v5m4-5v5"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section id="conversationPanel" class="panel conversation-panel" aria-label="Live transcript">
+          <div class="panel-heading">
+            <h2>Live transcript</h2>
+            <div class="conversation-badges">
+              <span id="intentBadge" class="top-chip intent-chip">Detected intent · waiting</span>
+              <span id="turnCount" class="top-chip turn-chip">0 turns</span>
+            </div>
+          </div>
+          <div id="conversation" class="conversation" aria-live="polite" aria-relevant="additions text">
+            <div id="emptyConversation" class="empty-state">
+              <span class="empty-orb" aria-hidden="true"><span></span></span>
+              <strong>Your live transcript will appear here</strong>
+              <span>Speak naturally. NovaTel detects when your turn is complete.</span>
+            </div>
+          </div>
+          <div class="conversation-hint">
+            <span class="hint-live-dot" aria-hidden="true"></span>
+            <span>Speak over the assistant to interrupt (barge-in)</span>
+            <span id="modelBadge" class="hint-model">FR · Whisper</span>
+          </div>
+        </section>
+
+        <section id="latencyPanel" class="panel latency-panel" aria-label="Measured pipeline latency">
+          <div class="panel-heading latency-heading">
+            <div><h2>End-to-end pipeline</h2><p class="panel-subtitle">Per-component latency · last turn</p></div>
+            <span id="latencyTotalBadge" class="latency-total-badge">— ms</span>
+          </div>
+          <div class="metric-grid">
+            <article class="metric-card metric-vad"><span>VAD</span><small>Silero VAD</small><strong id="metricVad">—</strong></article>
+            <article class="metric-card metric-asr"><span>ASR</span><small>faster-whisper</small><strong id="metricAsr">—</strong></article>
+            <article class="metric-card metric-rag"><span>RAG</span><small>Retrieval</small><strong id="metricRag">—</strong></article>
+            <article class="metric-card metric-llm"><span>LLM</span><small>NovaTel assistant</small><strong id="metricLlm">—</strong></article>
+            <article class="metric-card metric-tts"><span>TTS</span><small>Speech output</small><strong id="metricTts">—</strong></article>
+            <span id="metricTotal" class="sr-only">—</span>
+          </div>
+          <div id="metricBar" class="latency-bar" aria-label="Measured component latency breakdown">
+            <i id="barVad" class="bar-vad"></i><i id="barAsr" class="bar-asr"></i>
+            <i id="barRag" class="bar-rag"></i><i id="barLlm" class="bar-llm"></i><i id="barTts" class="bar-tts"></i>
+          </div>
+          <div class="latency-footnote"><span>TTFT <strong id="metricTtft">—</strong></span><span class="footnote-divider">·</span><span>First audio <strong id="metricFirstAudio">—</strong></span></div>
+        </section>
+
+        <section id="sourcesPanel" class="panel sources-panel" aria-label="NovaTel knowledge sources">
+          <div class="panel-heading">
+            <h2>Knowledge sources</h2>
+            <span id="sourceCount" class="top-chip count-chip">0 chunks</span>
+          </div>
+          <div id="sources" class="sources-list">
+            <p class="empty-note">Retrieved NovaTel knowledge passages will appear here.</p>
+          </div>
+        </section>
+      </div>
+
+      <footer class="footer-note">
+        <span><i></i> Audio processed in memory</span><b>·</b><span>Fictional NovaTel demo knowledge base</span><b>·</b><span>No default audio storage</span>
+      </footer>
+    </main>
+    </div>
+    <audio id="remoteAudio" autoplay playsinline hidden></audio>
+    <script src="/static/app.js?v=11" defer></script>
+  </body>
+</html>

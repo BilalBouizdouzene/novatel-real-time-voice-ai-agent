@@ -1,0 +1,1 @@
+{"id":"consented-fr-001","audio_path":"audio/consented-fr-001.wav","reference_transcript":"Remplacer par la transcription de référence exacte.","query":"Remplacer par une question textuelle facultative.","expected_intent":"cancel_subscription","retrieval_expected":true,"expected_sources":["cancellation.md"]}

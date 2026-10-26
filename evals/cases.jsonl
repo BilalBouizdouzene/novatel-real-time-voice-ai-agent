@@ -1,0 +1,13 @@
+{"id":"cancel-01","query":"Comment résilier mon abonnement ?","expected_intent":"cancel_subscription","retrieval_expected":true,"expected_sources":["cancellation.md"]}
+{"id":"billing-01","query":"Pourquoi ma facture est-elle plus élevée ce mois-ci ?","expected_intent":"billing_question","retrieval_expected":true,"expected_sources":["billing.md"]}
+{"id":"payment-01","query":"Mon paiement par carte est refusé, que faire ?","expected_intent":"payment_issue","retrieval_expected":true,"expected_sources":["payments.md"]}
+{"id":"network-01","query":"Je n'ai plus internet depuis ce matin.","expected_intent":"network_issue","retrieval_expected":true,"expected_sources":["network_support.md"]}
+{"id":"refund-01","query":"Comment obtenir un remboursement ?","expected_intent":"refund_request","retrieval_expected":true,"expected_sources":["refunds.md"]}
+{"id":"address-01","query":"Comment modifier mon adresse après un déménagement ?","expected_intent":"address_change","retrieval_expected":true,"expected_sources":["address_change.md"]}
+{"id":"roaming-01","query":"Quelle enveloppe de données est incluse en itinérance ?","expected_intent":"roaming_question","retrieval_expected":true,"expected_sources":["roaming.md"]}
+{"id":"plan-01","query":"Quel forfait mobile choisir selon mon usage de données ?","expected_intent":"plan_information","retrieval_expected":true,"expected_sources":["mobile_plans.md"]}
+{"id":"status-01","query":"Où en est ma demande de remboursement ?","expected_intent":"request_status","retrieval_expected":true,"expected_sources":["escalation_policy.md","refunds.md"]}
+{"id":"advisor-01","query":"Je veux parler à un conseiller.","expected_intent":"human_agent","retrieval_expected":true,"expected_sources":["escalation_policy.md"]}
+{"id":"greeting-01","query":"Bonjour.","expected_intent":"social","retrieval_expected":false,"expected_sources":[]}
+{"id":"thanks-01","query":"Merci beaucoup.","expected_intent":"social","retrieval_expected":false,"expected_sources":[]}
+{"id":"scope-01","query":"Quelle est la capitale du Canada ?","expected_intent":"out_of_scope","retrieval_expected":false,"expected_sources":[]}

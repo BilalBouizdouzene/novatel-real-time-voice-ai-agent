@@ -1,0 +1,62 @@
+services:
+  voice-agent:
+    build: .
+    container_name: real-time-voice-ai-agent
+    ports:
+      - "8000:8000"
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      WHISPER_MODEL: ${WHISPER_MODEL:-small}
+      WHISPER_DEVICE: ${WHISPER_DEVICE:-auto}
+      WHISPER_COMPUTE_TYPE: ${WHISPER_COMPUTE_TYPE:-auto}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2}
+      RAG_TOP_K: ${RAG_TOP_K:-4}
+      RAG_MIN_SCORE: ${RAG_MIN_SCORE:-0.30}
+      RAG_STRATEGY: ${RAG_STRATEGY:-auto}
+      RAG_RERANKER_MODEL: ${RAG_RERANKER_MODEL:-}
+      DEMO_TICKETS_DB_PATH: ${DEMO_TICKETS_DB_PATH:-data/novatel_demo_tickets.sqlite3}
+      SUPPORT_CASES_DB_PATH: ${SUPPORT_CASES_DB_PATH:-data/support_cases.sqlite3}
+      VOICE_TRANSPORT: ${VOICE_TRANSPORT:-auto}
+      WEBRTC_ENABLED: ${WEBRTC_ENABLED:-true}
+      TTS_STREAM_SAMPLE_RATE: ${TTS_STREAM_SAMPLE_RATE:-24000}
+      TTS_AUDIO_FRAME_MS: ${TTS_AUDIO_FRAME_MS:-40}
+      AGENT_DASHBOARD_TOKEN: ${AGENT_DASHBOARD_TOKEN:-}
+      CRM_PROVIDER: ${CRM_PROVIDER:-auto}
+      HUBSPOT_PRIVATE_APP_TOKEN: ${HUBSPOT_PRIVATE_APP_TOKEN:-}
+      HUBSPOT_TICKET_PIPELINE: ${HUBSPOT_TICKET_PIPELINE:-0}
+      HUBSPOT_TICKET_STAGE: ${HUBSPOT_TICKET_STAGE:-1}
+      HUBSPOT_OAUTH_CLIENT_ID: ${HUBSPOT_OAUTH_CLIENT_ID:-}
+      HUBSPOT_OAUTH_CLIENT_SECRET: ${HUBSPOT_OAUTH_CLIENT_SECRET:-}
+      HUBSPOT_OAUTH_REDIRECT_URI: ${HUBSPOT_OAUTH_REDIRECT_URI:-}
+      HUBSPOT_OAUTH_SCOPES: ${HUBSPOT_OAUTH_SCOPES:-crm.objects.tickets.read crm.objects.tickets.write crm.objects.notes.read crm.objects.notes.write}
+      HUBSPOT_OAUTH_DB_PATH: ${HUBSPOT_OAUTH_DB_PATH:-data/hubspot_oauth.sqlite3}
+      HUBSPOT_OAUTH_ENCRYPTION_KEY: ${HUBSPOT_OAUTH_ENCRYPTION_KEY:-}
+      CRM_WEBHOOK_URL: ${CRM_WEBHOOK_URL:-}
+      CRM_WEBHOOK_BEARER_TOKEN: ${CRM_WEBHOOK_BEARER_TOKEN:-}
+      CRM_WEBHOOK_TIMEOUT_SECONDS: ${CRM_WEBHOOK_TIMEOUT_SECONDS:-8}
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:11434/v1}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-qwen2.5:3b}
+      TTS_BACKEND: ${TTS_BACKEND:-auto}
+      PIPER_VOICE_MODEL: ${PIPER_VOICE_MODEL:-}
+      TTS_LANGUAGE: ${TTS_LANGUAGE:-fr}
+      TTS_VOICE: ${TTS_VOICE:-fr}
+      TWILIO_ENABLED: ${TWILIO_ENABLED:-false}
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID:-}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
+      TWILIO_API_KEY_SID: ${TWILIO_API_KEY_SID:-}
+      TWILIO_API_KEY_SECRET: ${TWILIO_API_KEY_SECRET:-}
+      TWILIO_FROM_NUMBER: ${TWILIO_FROM_NUMBER:-}
+      TWILIO_ADVISOR_NUMBER: ${TWILIO_ADVISOR_NUMBER:-}
+      TWILIO_WEBHOOK_BASE_URL: ${TWILIO_WEBHOOK_BASE_URL:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - model-cache:/home/appuser/.cache/huggingface
+      - faiss-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  model-cache:
+  faiss-data:

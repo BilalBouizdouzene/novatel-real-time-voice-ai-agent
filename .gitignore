@@ -1,0 +1,65 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.secret
+/credentials.json
+*_credentials.json
+
+# Python, tests and tooling
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-tmp/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+*.egg-info/
+
+# Local models, indexes, databases and generated reports
+/data/
+evals/private_audio/
+evals/*private*.jsonl
+reports/
+/models/
+
+# Personal notes and interview material
+docs/interview_explanation.md
+docs/personal/
+docs/private/
+interview/
+notes/
+personal/
+private/
+*_entretien.*
+*interview*.*
+*personal*.*
+*private*.*
+
+# Local logs, recordings and OS metadata
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.log
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.ogg
+*.mp4
+*.mov
+*.webm
+recordings/
+screenshots/personal/
+.DS_Store
+Thumbs.db
+Desktop.ini

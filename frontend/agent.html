@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#08091a" />
+    <title>NovaTel · Advisor inbox</title>
+    <link rel="stylesheet" href="/static/agent.css?v=4" />
+    <script src="/static/agent.js?v=2" defer></script>
+  </head>
+  <body>
+    <main class="agent-shell">
+      <header class="agent-header">
+        <a class="brand" href="/">N</a>
+        <div><p class="eyebrow">NOVATEL SUPPORT OPERATIONS</p><h1>Advisor inbox</h1></div>
+        <span id="connectionState" class="connection">Offline</span>
+      </header>
+
+      <section id="loginPanel" class="login panel">
+        <p class="eyebrow">SECURE STAFF ACCESS</p>
+        <h2>Sign in to the live queue</h2>
+        <p>Use the advisor token configured by the application administrator. Customer cases are visible only after authentication.</p>
+        <form id="loginForm">
+          <label>Advisor name<input id="agentName" autocomplete="name" maxlength="40" required value="Advisor" /></label>
+          <label>Access token<input id="agentToken" type="password" autocomplete="current-password" required /></label>
+          <button class="primary" type="submit">Connect to queue</button>
+        </form>
+        <p id="loginError" class="error" role="alert"></p>
+      </section>
+
+      <section id="inboxPanel" class="inbox" hidden>
+        <p id="inboxNotice" class="inbox-notice" role="status" aria-live="polite"></p>
+        <aside class="panel queue-panel">
+          <div class="panel-head"><div><p class="eyebrow">LIVE QUEUE</p><h2>Open cases</h2></div><button id="refreshButton" class="quiet" type="button">Refresh</button></div>
+          <div id="caseList" class="case-list"><p class="muted">No open cases.</p></div>
+        </aside>
+        <section class="panel detail-panel">
+          <div id="caseEmpty" class="case-empty"><span>◎</span><h2>Select a case</h2><p>New consented voice handoffs will appear in the queue.</p></div>
+          <div id="caseDetail" hidden>
+            <div class="panel-head"><div><p class="eyebrow">CUSTOMER HANDOFF</p><h2 id="caseTitle"></h2></div><span id="caseStatus" class="case-status"></span></div>
+            <p id="caseSummary" class="summary"></p>
+            <p id="caseMeta" class="case-meta"></p>
+            <div id="messageList" class="message-list" aria-live="polite"></div>
+            <div class="case-actions">
+              <button id="claimButton" class="primary" type="button">Claim case</button>
+              <button id="retryCrmButton" class="quiet" type="button" hidden>Retry CRM delivery</button>
+              <div id="callPanel" class="call-panel" hidden>
+                <div>
+                  <p class="eyebrow">TELEPHONE HANDOFF</p>
+                  <strong>Call the customer</strong>
+                  <p class="call-help">Enter the customer number in international E.164 format.</p>
+                </div>
+                <div class="call-row">
+                  <input id="customerPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+33753414072" maxlength="16" />
+                  <button id="callButton" class="call-button" type="button">Call customer</button>
+                </div>
+                <p id="callStatus" class="call-status" role="status" aria-live="polite"></p>
+              </div>
+              <form id="replyForm" class="reply-form">
+                <textarea id="replyText" maxlength="4000" rows="3" placeholder="Write a reply to the customer…" required></textarea>
+                <button class="primary" type="submit">Send reply</button>
+              </form>
+              <button id="resolveButton" class="resolve" type="button">Resolve case</button>
+            </div>
+          </div>
+        </section>
+      </section>
+      <footer>Consent-based human handoff · Case data is stored locally and optionally forwarded to the configured CRM webhook.</footer>
+    </main>
+  </body>
+</html>
