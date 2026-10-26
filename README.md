@@ -102,12 +102,9 @@ Le premier lancement peut télécharger les modèles Whisper et d'embeddings. Po
 
 Pour utiliser Ollama plutôt que Gemini, configure `LLM_BASE_URL=http://localhost:11434/v1` et `LLM_MODEL` dans `.env`, puis démarre Ollama avec le modèle choisi.
 
-## Tester le transfert conseiller
+## Inbox conseiller
 
-1. Dans l'interface vocale, demande : « Je souhaite parler à un conseiller humain pour un problème de facturation. »
-2. Confirme le partage lorsque Nova le demande.
-3. Ouvre [http://127.0.0.1:8000/agent](http://127.0.0.1:8000/agent) et connecte-toi avec `AGENT_DASHBOARD_TOKEN`.
-4. Réclame le dossier et réponds depuis l'inbox.
+Après le consentement du client, le dossier est disponible sur [http://127.0.0.1:8000/agent](http://127.0.0.1:8000/agent). Le conseiller s'authentifie avec `AGENT_DASHBOARD_TOKEN`, réclame le dossier et répond depuis l'inbox.
 
 Par défaut, les dossiers sont locaux. HubSpot, le webhook CRM et Twilio sont des intégrations optionnelles ; elles nécessitent leurs propres identifiants et configuration dans `.env`. Twilio Trial est une démonstration d'appel, pas un pont téléphonique complet vers le pipeline vocal.
 
